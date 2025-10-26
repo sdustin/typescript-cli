@@ -1,8 +1,8 @@
 class HelloWorld {
-    constructor(private greeting = 'Hello world') {}
+    constructor(private readonly greeting = 'Hello world') {}
 
     greet(message?: string): string {
-        return `${this.greeting} ${message || ''}`.trim();
+        return `${this.greeting} ${message ?? ''}`.trim();
     }
 }
 

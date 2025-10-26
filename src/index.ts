@@ -7,14 +7,15 @@ class App {
 
     constructor() {
         const args = process.argv.slice(2);
-        this.commandLineGreeting = args.length ? args.join(" ") : null;
+        this.commandLineGreeting = args.length ? args.join(' ') : null;
         this.helloWorld = new HelloWorld();
     }
 
-    async run() {
-        const personalMessage = this.commandLineGreeting || await promptUser("Say something: ") || "from index.ts (default)";
+    async run(): Promise<void> {
+        const personalMessage = this.commandLineGreeting ?? await promptUser('Say something: ') ?? 'from index.ts (default)';
         const greetingMessage = this.helloWorld.greet(personalMessage);
-        console.log(greetingMessage);
+        process.stdout.write(greetingMessage);
+        process.stdout.write('\n');
     }
 }
 
@@ -22,6 +23,6 @@ const app = new App();
 app.run().then(() => {
     process.exit(0);
 }).catch((error) => {
-    console.error("An error occurred:", error);
+    process.stderr.write(`\nAn error occurred: ${error}\n`);
     process.exit(1);
 });
